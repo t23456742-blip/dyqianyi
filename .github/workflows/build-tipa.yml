@@ -22,14 +22,14 @@ jobs:
           xcode-version: "16"
 
       - name: Show Xcode
-        run: xcodebuild -version
         working-directory: .
+        run: xcodebuild -version
 
       - name: Install tools
+        working-directory: .
         run: |
           brew install ldid xcodegen
           xcodegen --version
-        working-directory: .
 
       - name: Generate Xcode project
         run: |
@@ -51,6 +51,7 @@ jobs:
 
       - name: Package tipa
         run: |
+          sed -i '' $'s/\r$//' scripts/package-tipa.sh
           chmod +x scripts/package-tipa.sh
           bash scripts/package-tipa.sh
 
